@@ -1,48 +1,50 @@
 package elements
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
 
-type Direction string
-const (
-	Column Direction = "flex-col"
-	Row Direction = "flex-row"
-	ColumnReverse Direction = "flex-col-reverse"
-	RowReverse Direction = "flex-row-reverse"
+	v "github.com/alehoppai/abui-go/pkg/abui/values"
 )
 
-type Alignment string
-const (
-	AlignStart Alignment = "items-start"
-	AlignCenter Alignment = "items-center"
-	AlignEnd Alignment = "items-end"
-)
-
-type Justification string
-const (
-	JustifyStart Justification = "justify-start"
-	JustifyCenter Justification = "justify-center"
-	JustifyEnd Justification = "justify-end"
-)
-
-type Flex struct {
-	Class *string
-	Children []Node
-	Direction *Direction
-	Align *Alignment
-	Justify *Justification
+type LayoutFields struct {
+	direction *v.Direction
+	align     *v.Alignment
+	justify   *v.Justification
 }
 
-func (s Flex) Render() string {
-	class := s.buildClass()
+type SizeFields struct {
+	width   *string
+	height  *string
+	padding *string
+}
+
+type flex struct {
+	children []Node
+	LayoutFields
+	SizeFields
+}
+
+func Flex(children ...Node) *flex {
+	dir := v.Column
+	align := v.AlignStart
+	justify := v.JustifyStart
+
+	layout := LayoutFields{direction: &dir, align: &align, justify: &justify}
+	size := SizeFields{}
+
+	return &flex{children: children, LayoutFields: layout, SizeFields: size}
+}
+
+func (s flex) Render() string {
+	classList := s.buildClassList()
 	html := "<div"
-
-	if len(class) > 0 {
-		html += fmt.Sprintf(" class=\"%s\"", class)
+	if len(classList) > 0 {
+		html += fmt.Sprintf(" class=\"%s\"", classList)
 	}
-
 	html += ">"
 
-	for _, child := range s.Children {
+	for _, child := range s.children {
 		html += child.Render()
 	}
 
@@ -50,20 +52,16 @@ func (s Flex) Render() string {
 	return html
 }
 
-func (s *Flex) buildClass() string {
-	class := ""
-	if s.Class != nil {
-		class += *s.Class
+func (s *flex) buildClassList() string {
+	classList := ""
+	if s.LayoutFields.direction != nil {
+		classList += fmt.Sprintf(" %s", string(*s.direction))
 	}
-	if s.Direction != nil {
-		class += fmt.Sprintf(", %s", *s.Direction)
+	if s.LayoutFields.align != nil {
+		classList += fmt.Sprintf(" %s", string(*s.align))
 	}
-	if s.Align != nil {
-		class += fmt.Sprintf(", %s", *s.Align)
+	if s.LayoutFields.justify != nil {
+		classList += fmt.Sprintf(" %s", string(*s.justify))
 	}
-	if s.Justify != nil {
-		class += fmt.Sprintf(", %s", *s.Justify)
-	}
-
-	return class
+	return strings.TrimSpace(classList)
 }
