@@ -17,17 +17,17 @@ type LayoutFields struct {
 // width can be set with not just ScaleValue but
 // also with fractionalScale values
 type SizeFields struct {
-	width     *string
-	minWidth  *string
-	maxWidth  *string
-	height    *string
-	minHeight *string
-	maxHeight *string
+	width     string
+	minWidth  string
+	maxWidth  string
+	height    string
+	minHeight string
+	maxHeight string
 }
 
 type OffsetFields struct {
-	padding *string
-	margin  *string
+	padding string
+	margin  string
 }
 
 type flex struct {
