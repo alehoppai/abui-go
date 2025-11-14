@@ -64,28 +64,40 @@ const (
 	S_96   ScaleValue = 24
 )
 
-type FractionalScaleValue float32
+type FractionalScaleValue string
 
 const (
-	FS_1_2 FractionalScaleValue = 50
-	FS_1_3 FractionalScaleValue = 33.333333
-	FS_2_3 FractionalScaleValue = 66.666667
-	FS_1_4 FractionalScaleValue = 25
-	FS_2_4 FractionalScaleValue = 50
-	FS_3_4 FractionalScaleValue = 75
-	FS_1_5 FractionalScaleValue = 20
-	FS_2_5 FractionalScaleValue = 40
-	FS_3_5 FractionalScaleValue = 60
-	FS_4_5 FractionalScaleValue = 80
-	FS_1_6 FractionalScaleValue = 16.666667
-	FS_5_6 FractionalScaleValue = 83.333333
+	FS_1_2 FractionalScaleValue = "1/2"
+	FS_1_3 FractionalScaleValue = "1/3"
+	FS_2_3 FractionalScaleValue = "2/3"
+	FS_1_4 FractionalScaleValue = "1/4"
+	FS_2_4 FractionalScaleValue = "2/4"
+	FS_3_4 FractionalScaleValue = "3/4"
+	FS_1_5 FractionalScaleValue = "1/5"
+	FS_2_5 FractionalScaleValue = "2/5"
+	FS_3_5 FractionalScaleValue = "3/5"
+	FS_4_5 FractionalScaleValue = "4/5"
+	FS_1_6 FractionalScaleValue = "1/6"
+	FS_5_6 FractionalScaleValue = "5/6"
 )
 
-type SizeVerbalValue string
+type MinMaxContentValue string
 
 const (
-	S_Auto SizeVerbalValue = "auto"
-	S_Min  SizeVerbalValue = "min-content"
-	S_Max  SizeVerbalValue = "max-content"
-	S_Fit  SizeVerbalValue = "fit-content"
+	S_Auto MinMaxContentValue = "auto"
+	S_Min  MinMaxContentValue = "min-content"
+	S_Max  MinMaxContentValue = "max-content"
+	S_Fit  MinMaxContentValue = "fit-content"
+)
+
+type Offset string
+
+const (
+	O_Inline Offset = "y"
+	O_Block  Offset = "x"
+	O_Top    Offset = "t"
+	O_Right  Offset = "r"
+	O_Bottom Offset = "b"
+	O_Left   Offset = "l"
+	O_All    Offset = ""
 )
